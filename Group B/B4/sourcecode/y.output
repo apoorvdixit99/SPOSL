@@ -1,0 +1,537 @@
+Grammar
+
+    0 $accept: s $end
+
+    1 s: forint
+    2  | forfloat
+    3  | forchar
+    4  | forbool
+
+    5 forint: INT varint DL NL
+
+    6 forfloat: FLOAT varfloat DL NL
+
+    7 forchar: CHAR varchar DL NL
+
+    8 forbool: BOOL varbool DL NL
+
+    9 varint: ID
+   10       | ID COM varint
+   11       | ID OP NUM
+   12       | ID OP NUM COM varint
+   13       | %empty
+
+   14 varfloat: ID
+   15         | ID COM varfloat
+   16         | ID OP REAL
+   17         | ID OP REAL COM varfloat
+   18         | %empty
+
+   19 varchar: ID
+   20        | ID COM varchar
+   21        | ID OP CHVAL
+   22        | ID OP CHVAL COM varchar
+   23        | %empty
+
+   24 varbool: ID
+   25        | ID COM varbool
+   26        | ID OP BLVAL
+   27        | ID OP BLVAL COM varbool
+   28        | %empty
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+INT (258) 5
+FLOAT (259) 6
+CHAR (260) 7
+BOOL (261) 8
+BLVAL (262) 26 27
+CHVAL (263) 21 22
+ID (264) 9 10 11 12 14 15 16 17 19 20 21 22 24 25 26 27
+NL (265) 5 6 7 8
+REAL (266) 16 17
+NUM (267) 11 12
+COM (268) 10 12 15 17 20 22 25 27
+DL (269) 5 6 7 8
+OP (270) 11 12 16 17 21 22 26 27
+
+
+Nonterminals, with rules where they appear
+
+$accept (16)
+    on left: 0
+s (17)
+    on left: 1 2 3 4, on right: 0
+forint (18)
+    on left: 5, on right: 1
+forfloat (19)
+    on left: 6, on right: 2
+forchar (20)
+    on left: 7, on right: 3
+forbool (21)
+    on left: 8, on right: 4
+varint (22)
+    on left: 9 10 11 12 13, on right: 5 10 12
+varfloat (23)
+    on left: 14 15 16 17 18, on right: 6 15 17
+varchar (24)
+    on left: 19 20 21 22 23, on right: 7 20 22
+varbool (25)
+    on left: 24 25 26 27 28, on right: 8 25 27
+
+
+State 0
+
+    0 $accept: . s $end
+
+    INT    shift, and go to state 1
+    FLOAT  shift, and go to state 2
+    CHAR   shift, and go to state 3
+    BOOL   shift, and go to state 4
+
+    s         go to state 5
+    forint    go to state 6
+    forfloat  go to state 7
+    forchar   go to state 8
+    forbool   go to state 9
+
+
+State 1
+
+    5 forint: INT . varint DL NL
+
+    ID  shift, and go to state 10
+
+    $default  reduce using rule 13 (varint)
+
+    varint  go to state 11
+
+
+State 2
+
+    6 forfloat: FLOAT . varfloat DL NL
+
+    ID  shift, and go to state 12
+
+    $default  reduce using rule 18 (varfloat)
+
+    varfloat  go to state 13
+
+
+State 3
+
+    7 forchar: CHAR . varchar DL NL
+
+    ID  shift, and go to state 14
+
+    $default  reduce using rule 23 (varchar)
+
+    varchar  go to state 15
+
+
+State 4
+
+    8 forbool: BOOL . varbool DL NL
+
+    ID  shift, and go to state 16
+
+    $default  reduce using rule 28 (varbool)
+
+    varbool  go to state 17
+
+
+State 5
+
+    0 $accept: s . $end
+
+    $end  shift, and go to state 18
+
+
+State 6
+
+    1 s: forint .
+
+    $default  reduce using rule 1 (s)
+
+
+State 7
+
+    2 s: forfloat .
+
+    $default  reduce using rule 2 (s)
+
+
+State 8
+
+    3 s: forchar .
+
+    $default  reduce using rule 3 (s)
+
+
+State 9
+
+    4 s: forbool .
+
+    $default  reduce using rule 4 (s)
+
+
+State 10
+
+    9 varint: ID .
+   10       | ID . COM varint
+   11       | ID . OP NUM
+   12       | ID . OP NUM COM varint
+
+    COM  shift, and go to state 19
+    OP   shift, and go to state 20
+
+    $default  reduce using rule 9 (varint)
+
+
+State 11
+
+    5 forint: INT varint . DL NL
+
+    DL  shift, and go to state 21
+
+
+State 12
+
+   14 varfloat: ID .
+   15         | ID . COM varfloat
+   16         | ID . OP REAL
+   17         | ID . OP REAL COM varfloat
+
+    COM  shift, and go to state 22
+    OP   shift, and go to state 23
+
+    $default  reduce using rule 14 (varfloat)
+
+
+State 13
+
+    6 forfloat: FLOAT varfloat . DL NL
+
+    DL  shift, and go to state 24
+
+
+State 14
+
+   19 varchar: ID .
+   20        | ID . COM varchar
+   21        | ID . OP CHVAL
+   22        | ID . OP CHVAL COM varchar
+
+    COM  shift, and go to state 25
+    OP   shift, and go to state 26
+
+    $default  reduce using rule 19 (varchar)
+
+
+State 15
+
+    7 forchar: CHAR varchar . DL NL
+
+    DL  shift, and go to state 27
+
+
+State 16
+
+   24 varbool: ID .
+   25        | ID . COM varbool
+   26        | ID . OP BLVAL
+   27        | ID . OP BLVAL COM varbool
+
+    COM  shift, and go to state 28
+    OP   shift, and go to state 29
+
+    $default  reduce using rule 24 (varbool)
+
+
+State 17
+
+    8 forbool: BOOL varbool . DL NL
+
+    DL  shift, and go to state 30
+
+
+State 18
+
+    0 $accept: s $end .
+
+    $default  accept
+
+
+State 19
+
+   10 varint: ID COM . varint
+
+    ID  shift, and go to state 10
+
+    $default  reduce using rule 13 (varint)
+
+    varint  go to state 31
+
+
+State 20
+
+   11 varint: ID OP . NUM
+   12       | ID OP . NUM COM varint
+
+    NUM  shift, and go to state 32
+
+
+State 21
+
+    5 forint: INT varint DL . NL
+
+    NL  shift, and go to state 33
+
+
+State 22
+
+   15 varfloat: ID COM . varfloat
+
+    ID  shift, and go to state 12
+
+    $default  reduce using rule 18 (varfloat)
+
+    varfloat  go to state 34
+
+
+State 23
+
+   16 varfloat: ID OP . REAL
+   17         | ID OP . REAL COM varfloat
+
+    REAL  shift, and go to state 35
+
+
+State 24
+
+    6 forfloat: FLOAT varfloat DL . NL
+
+    NL  shift, and go to state 36
+
+
+State 25
+
+   20 varchar: ID COM . varchar
+
+    ID  shift, and go to state 14
+
+    $default  reduce using rule 23 (varchar)
+
+    varchar  go to state 37
+
+
+State 26
+
+   21 varchar: ID OP . CHVAL
+   22        | ID OP . CHVAL COM varchar
+
+    CHVAL  shift, and go to state 38
+
+
+State 27
+
+    7 forchar: CHAR varchar DL . NL
+
+    NL  shift, and go to state 39
+
+
+State 28
+
+   25 varbool: ID COM . varbool
+
+    ID  shift, and go to state 16
+
+    $default  reduce using rule 28 (varbool)
+
+    varbool  go to state 40
+
+
+State 29
+
+   26 varbool: ID OP . BLVAL
+   27        | ID OP . BLVAL COM varbool
+
+    BLVAL  shift, and go to state 41
+
+
+State 30
+
+    8 forbool: BOOL varbool DL . NL
+
+    NL  shift, and go to state 42
+
+
+State 31
+
+   10 varint: ID COM varint .
+
+    $default  reduce using rule 10 (varint)
+
+
+State 32
+
+   11 varint: ID OP NUM .
+   12       | ID OP NUM . COM varint
+
+    COM  shift, and go to state 43
+
+    $default  reduce using rule 11 (varint)
+
+
+State 33
+
+    5 forint: INT varint DL NL .
+
+    $default  reduce using rule 5 (forint)
+
+
+State 34
+
+   15 varfloat: ID COM varfloat .
+
+    $default  reduce using rule 15 (varfloat)
+
+
+State 35
+
+   16 varfloat: ID OP REAL .
+   17         | ID OP REAL . COM varfloat
+
+    COM  shift, and go to state 44
+
+    $default  reduce using rule 16 (varfloat)
+
+
+State 36
+
+    6 forfloat: FLOAT varfloat DL NL .
+
+    $default  reduce using rule 6 (forfloat)
+
+
+State 37
+
+   20 varchar: ID COM varchar .
+
+    $default  reduce using rule 20 (varchar)
+
+
+State 38
+
+   21 varchar: ID OP CHVAL .
+   22        | ID OP CHVAL . COM varchar
+
+    COM  shift, and go to state 45
+
+    $default  reduce using rule 21 (varchar)
+
+
+State 39
+
+    7 forchar: CHAR varchar DL NL .
+
+    $default  reduce using rule 7 (forchar)
+
+
+State 40
+
+   25 varbool: ID COM varbool .
+
+    $default  reduce using rule 25 (varbool)
+
+
+State 41
+
+   26 varbool: ID OP BLVAL .
+   27        | ID OP BLVAL . COM varbool
+
+    COM  shift, and go to state 46
+
+    $default  reduce using rule 26 (varbool)
+
+
+State 42
+
+    8 forbool: BOOL varbool DL NL .
+
+    $default  reduce using rule 8 (forbool)
+
+
+State 43
+
+   12 varint: ID OP NUM COM . varint
+
+    ID  shift, and go to state 10
+
+    $default  reduce using rule 13 (varint)
+
+    varint  go to state 47
+
+
+State 44
+
+   17 varfloat: ID OP REAL COM . varfloat
+
+    ID  shift, and go to state 12
+
+    $default  reduce using rule 18 (varfloat)
+
+    varfloat  go to state 48
+
+
+State 45
+
+   22 varchar: ID OP CHVAL COM . varchar
+
+    ID  shift, and go to state 14
+
+    $default  reduce using rule 23 (varchar)
+
+    varchar  go to state 49
+
+
+State 46
+
+   27 varbool: ID OP BLVAL COM . varbool
+
+    ID  shift, and go to state 16
+
+    $default  reduce using rule 28 (varbool)
+
+    varbool  go to state 50
+
+
+State 47
+
+   12 varint: ID OP NUM COM varint .
+
+    $default  reduce using rule 12 (varint)
+
+
+State 48
+
+   17 varfloat: ID OP REAL COM varfloat .
+
+    $default  reduce using rule 17 (varfloat)
+
+
+State 49
+
+   22 varchar: ID OP CHVAL COM varchar .
+
+    $default  reduce using rule 22 (varchar)
+
+
+State 50
+
+   27 varbool: ID OP BLVAL COM varbool .
+
+    $default  reduce using rule 27 (varbool)
